@@ -4,7 +4,7 @@ import ResumeForm from "@/components/features/ResumeForm";
 import Suggestions from "@/components/features/Suggestions";
 import CVPageLayout from "@/components/layout/CVPageLayout";
 import PDFViewer from "@/components/features/PDFViewer";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function HomePage() {
   const [suggestions, setSuggestions] = useState<string[]>([]);

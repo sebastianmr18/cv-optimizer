@@ -82,7 +82,7 @@ export default function ResumeForm({
           "Error al subir el archivo. Por favor, inténtalo de nuevo.",
         );
       }
-    } catch (err) {
+    } catch {
       setFileError("El archivo supera el tamaño máximo permitido de 10MB.");
       setFileUrl(null);
     }

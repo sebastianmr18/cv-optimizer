@@ -16,6 +16,4 @@ app.use("/api/upload-aws", uploadAwsRouter);
 app.use("/api/generate-presigned-url", generatePresignedUrlRouter);
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Servidor backend en http://localhost:${PORT}`);
-});
+app.listen(PORT, () => {});
