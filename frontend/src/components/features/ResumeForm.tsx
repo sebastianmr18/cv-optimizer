@@ -5,7 +5,7 @@ import axios from "axios";
 import { Input } from "@/components/ui/input";
 
 interface ResumeFormProps {
-  setSuggestions: (suggestions: string[]) => void;
+  setSuggestions: (suggestions: string) => void;
   setFileUrl: (fileUrl: string | null) => void;
   setFileError: (error: string | null) => void;
 }
@@ -31,7 +31,7 @@ export default function ResumeForm({
 
     const response = await axios.post("/api/adapt-cv", formData);
     const data = response.data;
-    setSuggestions(data.suggestions || []);
+    setSuggestions(data.suggestions || "");
     setIsLoading(false);
   };
 
