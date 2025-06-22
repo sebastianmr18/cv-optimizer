@@ -93,10 +93,14 @@ export default function ResumeForm({
       <form className="max-w-6xl mx-auto">
         <div className="flex gap-6 items-start">
           <div className="flex-1">
-            <label className="block text-sm font-medium text-foreground mb-1">
+            <label
+              htmlFor="cv-file-upload"
+              className="block text-sm font-medium text-foreground mb-1"
+            >
               Sube tu CV (solo formato PDF)
             </label>
             <Input
+              id="cv-file-upload"
               type="file"
               accept=".pdf"
               onChange={(e) => {
@@ -120,10 +124,14 @@ export default function ResumeForm({
           </div>
 
           <div className="flex-1">
-            <label className="block text-sm font-medium text-foreground mb-1">
+            <label
+              htmlFor="job-description"
+              className="block text-sm font-medium text-foreground mb-1"
+            >
               Descripción del puesto
             </label>
             <textarea
+              id="job-description"
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
               className="mt-1 block w-full px-3 py-2 border border-input rounded-md bg-background text-foreground text-sm resize-none"
@@ -141,7 +149,7 @@ export default function ResumeForm({
             disabled={!cvFile || !jobDescription || isLoading}
             onClick={handleSubmit}
           >
-            Generar sugerencias
+            {isLoading ? "Generando sugerencias..." : "Generar sugerencias"}
           </button>
         </div>
       </form>
