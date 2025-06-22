@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { FileText, FileWarning } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -112,30 +118,38 @@ export default function PDFViewer({ fileUrl, fileError }: PDFViewerProps) {
 
   // ✅ Mostrar PDF
   return (
-    <div className="flex flex-col gap-4 h-full py-3">
-      <div className="flex items-center justify-between bg-green-800 px-6 py-3 rounded-xl shadow-md">
-        <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-          <FileText className="w-5 h-5" />
-          Vista Previa del Documento
-        </h2>
-      </div>
+    <div className="flex flex-col gap-4 h-full py-3 w-full">
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg"
+      >
+        <AccordionItem value="item-1">
+          <AccordionTrigger className="px-6 py-4 text-lg font-semibold bg-green-800 text-white rounded-t-xl hover:bg-green-700 transition-colors">
+            <FileText className="w-5 h-5 mr-2" />
+            Vista Previa del Documento
+          </AccordionTrigger>
 
-      <div className="relative flex-1 border border-gray-200 dark:border-gray-700 rounded-b-xl shadow-lg overflow-hidden">
-        {signedUrl ? (
-          <iframe
-            src={signedUrl}
-            className="w-full h-full"
-            title="Vista previa del PDF"
-            loading="lazy"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-            <p className="text-gray-500 dark:text-gray-400">
-              Cargando documento...
-            </p>
-          </div>
-        )}
-      </div>
+          <AccordionContent className="bg-white dark:bg-gray-900 p-4 rounded-b-xl">
+            <div className="relative border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden min-h-[400px]">
+              {signedUrl ? (
+                <iframe
+                  id="pdf-viewer"
+                  src={signedUrl}
+                  className="absolute top-0 left-0 w-full h-full"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center bg-gray-50 dark:bg-gray-800">
+                  <p className="text-gray-500 dark:text-gray-400">
+                    Cargando documento...
+                  </p>
+                </div>
+              )}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 }

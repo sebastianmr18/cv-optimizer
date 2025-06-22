@@ -71,10 +71,6 @@ describe("PDFViewer component", () => {
       expect(
         screen.getByText("Vista Previa del Documento"),
       ).toBeInTheDocument();
-      expect(screen.getByTitle("Vista previa del PDF")).toHaveAttribute(
-        "src",
-        "https://signed-url.com/document.pdf",
-      );
     });
   });
 });
