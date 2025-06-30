@@ -1,14 +1,95 @@
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const genAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
+export const CV_OPTIMIZATION_SCHEMA = {
+  type: Type.OBJECT,
+  required: [
+    "summary",
+    "matchScore",
+    "keywordSuggestions",
+    "formatSuggestions",
+    "contentSuggestions",
+    "experienceSuggestions",
+    "finalRecommendation"
+  ],
+  properties: {
+    summary: {
+      type: Type.STRING,
+      description: "Breve resumen del análisis del CV vs la oferta de empleo"
+    },
+    matchScore: {
+      type: Type.NUMBER,
+      description: "Puntaje de coincidencia entre 0-100 basado en la adecuación CV-oferta"
+    },
+    keywordSuggestions: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.STRING,
+        description: "Sugerencias relacionadas con palabras clave faltantes o relevantes"
+      }
+    },
+    formatSuggestions: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.STRING,
+        description: "Sugerencias para mejorar el formato y estructura del CV"
+      }
+    },
+    contentSuggestions: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.STRING,
+        description: "Sugerencias para mejorar el contenido relevante del CV"
+      }
+    },
+    experienceSuggestions: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.STRING,
+        description: "Sugerencias específicas sobre la experiencia profesional"
+      }
+    },
+    finalRecommendation: {
+      type: Type.STRING,
+      description: "Conclusión y recomendaciones generales para mejorar el CV"
+    },
+    missingSkills: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.STRING,
+        description: "Lista de habilidades mencionadas en la oferta que faltan en el CV"
+      },
+      optional: true
+    },
+    strongMatches: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.STRING,
+        description: "Lista de habilidades/experiencias que son fuertes coincidencias"
+      },
+      optional: true
+    }
+  }
+};
+
 export async function getSuggestions(
   cvText: string,
   jobText: string,
-): Promise<string> {
+): Promise<{
+  summary: string;
+  matchScore: number;
+  keywordSuggestions: string[];
+  formatSuggestions: string[];
+  contentSuggestions: string[];
+  experienceSuggestions: string[];
+  finalRecommendation: string;
+  missingSkills?: string[];
+  strongMatches?: string[];
+}> {
   const prompt = `
 ### Rol:
 Eres un experto en recursos humanos con 10+ años de experiencia en matching de candidatos. Analizarás un CV y una oferta de empleo para proporcionar sugerencias específicas y accionables.
@@ -19,37 +100,20 @@ Eres un experto en recursos humanos con 10+ años de experiencia en matching de 
 3. Identifica áreas de experiencia faltantes o débiles según la oferta.
 4. Proporciona sugerencias concretas para mejorar el CV sin reescribirlo.
 5. Asigna un puntaje de coincidencia (0-100) basado en la adecuación CV-oferta.
-6. Usa un tono formal y tecnico en las sugerencias.
-
-### Formato de Respuesta Esperado (JSON):
-\`\`\`markdown
-**Resumen**: [Breve resumen del análisis]
-
-**Puntaje de Coincidencia**: [0-100] ⭐
-
-### **Sugerencias de Mejora:**
-
-#### 🔍 **Palabras Clave**
-- [Sugerencia 1]
-- [Sugerencia 2]
-- más si es necesario
-
-#### 📝 **Formato y Estructura**
-- [Sugerencia 1]
-- [Sugerencia 2]
-- más si es necesario
-
-#### 🧠 **Contenido Relevante**
-- [Sugerencia 1]
-- más si es necesario
-
-#### 💼 **Experiencia**
-- [Sugerencia 1]
-- más si es necesario
-
-### **Recomendación Final:**
-[Conclusión y recomendaciones generales]
-\`\`\`
+6. Usa un tono formal y técnico en las sugerencias.
+7. Devuelve SOLAMENTE un JSON válido sin markdown, comentarios o texto adicional.
+8. El JSON debe tener exactamente esta estructura:
+{
+  "summary": string,
+  "matchScore": number,
+  "keywordSuggestions": string[],
+  "formatSuggestions": string[],
+  "contentSuggestions": string[],
+  "experienceSuggestions": string[],
+  "finalRecommendation": string,
+  "missingSkills": string[],
+  "strongMatches": string[]
+}
 
 === CURRÍCULUM ===
 ${cvText.substring(0, 5000)}
@@ -62,7 +126,7 @@ ${jobText.substring(0, 3000)}
     temperature: 0.3,
     topK: 20,
     topP: 0.95,
-    maxOutputTokens: 1000,
+    maxOutputTokens: 2000,
   };
 
   const model = await genAI.models.generateContent({
@@ -75,5 +139,24 @@ ${jobText.substring(0, 3000)}
   if (!response) {
     throw new Error("Response from the model is undefined.");
   }
-  return response;
+
+  try {
+    // Limpiar la respuesta eliminando markdown y cualquier texto no JSON
+    let cleanedResponse = response.trim();
+    
+    // Eliminar ```json y ``` si están presentes
+    if (cleanedResponse.startsWith('```json')) {
+      cleanedResponse = cleanedResponse.slice(7);
+    }
+    if (cleanedResponse.endsWith('```')) {
+      cleanedResponse = cleanedResponse.slice(0, -3);
+    }
+    
+    // Parsear el JSON limpio
+    const parsedResponse = JSON.parse(cleanedResponse);
+    return parsedResponse;
+  } catch (e) {
+    console.error("Raw model response:", response);
+    throw new Error(`Failed to parse model response: ${e}`);
+  }
 }
