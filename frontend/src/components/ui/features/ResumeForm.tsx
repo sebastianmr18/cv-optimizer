@@ -3,9 +3,10 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { Input } from "@/components/ui/input";
+import { CVOptimizationResult } from "@/types/CVOptimization";
 
 interface ResumeFormProps {
-  setSuggestions: (suggestions: string) => void;
+  setSuggestions: (suggestions: CVOptimizationResult) => void;
   setFileUrl: (fileUrl: string | null) => void;
   setFileError: (error: string | null) => void;
 }

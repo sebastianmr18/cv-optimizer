@@ -26,7 +26,7 @@ import {
 import { useState } from "react";
 
 interface SuggestionsProps {
-  suggestions: CVOptimizationResult;
+  suggestions: CVOptimizationResult | null;
 }
 
 function getSectionConfig(type: SuggestionSection["type"]) {
