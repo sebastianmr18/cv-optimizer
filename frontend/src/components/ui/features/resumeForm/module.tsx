@@ -60,7 +60,9 @@ export default function ResumeForm({
       );
       setCvFile(null);
       setInputKey(Date.now());
-      fileInputRef.current && (fileInputRef.current.value = "");
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
       return;
     }
 
@@ -86,7 +88,9 @@ export default function ResumeForm({
     setFileError(null);
     setFileUrl(null);
     setInputKey(Date.now());
-    fileInputRef.current && (fileInputRef.current.value = "");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   return (

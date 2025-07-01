@@ -38,7 +38,8 @@ export default function PDFViewer({
         setIsPreviewLoading(true);
         const signed = await generatePresignedUrl(fileUrl);
         setSignedUrl(signed);
-      } catch (error) {
+      } catch {
+        setError("Hubo un error al generar la vista previa");
         setSignedUrl(null);
       } finally {
         setIsPreviewLoading(false);
