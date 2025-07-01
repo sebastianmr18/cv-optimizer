@@ -7,7 +7,10 @@ import PDFViewerNotFileUrl from "@/components/ui/features/PDFViewer/PDFViewerNot
 import PDFViewerNotPDF from "@/components/ui/features/PDFViewer/PDFViewerNotPDF";
 import PDFViewerError from "@/components/ui/features/PDFViewer/PDFViewerError";
 import PDFViewerShowPDF from "@/components/ui/features/PDFViewer/PDFViewerShowPDF";
-import { generatePresignedUrl, isValidPDF} from "@/utils/PDFViewer/PDFViewerUtils";
+import {
+  generatePresignedUrl,
+  isValidPDF,
+} from "@/utils/PDFViewer/PDFViewerUtils";
 
 interface PDFViewerProps {
   fileUrl: string | null;
@@ -17,7 +20,13 @@ interface PDFViewerProps {
   setIsPreviewLoading: (loading: boolean) => void;
 }
 
-export default function PDFViewer({ fileUrl, fileError, isUploading, isPreviewLoading, setIsPreviewLoading }: PDFViewerProps) {
+export default function PDFViewer({
+  fileUrl,
+  fileError,
+  isUploading,
+  isPreviewLoading,
+  setIsPreviewLoading,
+}: PDFViewerProps) {
   const [signedUrl, setSignedUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 

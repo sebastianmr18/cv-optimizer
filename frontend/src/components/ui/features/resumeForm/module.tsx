@@ -55,7 +55,9 @@ export default function ResumeForm({
     setIsUploading(true);
     const isValid = validatePDFFile(file);
     if (!isValid) {
-      setFileError("Hubo un error. Asegurate que el archivo sea un PDF y que el peso del archivo no supere los 10MB.");
+      setFileError(
+        "Hubo un error. Asegurate que el archivo sea un PDF y que el peso del archivo no supere los 10MB.",
+      );
       setCvFile(null);
       setInputKey(Date.now());
       fileInputRef.current && (fileInputRef.current.value = "");
@@ -74,7 +76,8 @@ export default function ResumeForm({
       setFileUrl(null);
       setInputKey(Date.now());
     } finally {
-      setIsUploading(false);}
+      setIsUploading(false);
+    }
   };
 
   const handleClear = () => {
@@ -90,7 +93,10 @@ export default function ResumeForm({
     <form className="max-w-6xl mx-auto">
       <div className="flex gap-6 items-start">
         <div className="flex-1">
-          <label htmlFor="cv-file-upload" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="cv-file-upload"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Sube tu CV (solo formato PDF)
           </label>
           <Input
@@ -104,13 +110,20 @@ export default function ResumeForm({
             }}
             ref={fileInputRef}
             className="h-[76px] file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
-            style={{ textOverflow: "unset", whiteSpace: "normal", overflow: "visible" }}
+            style={{
+              textOverflow: "unset",
+              whiteSpace: "normal",
+              overflow: "visible",
+            }}
             required
           />
         </div>
 
         <div className="flex-1">
-          <label htmlFor="job-description" className="block text-sm font-medium text-foreground mb-1">
+          <label
+            htmlFor="job-description"
+            className="block text-sm font-medium text-foreground mb-1"
+          >
             Descripción del puesto
           </label>
           <textarea

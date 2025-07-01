@@ -1,6 +1,4 @@
-import type {
-  SuggestionSection,
-} from "@/types/CVOptimization";
+import type { SuggestionSection } from "@/types/CVOptimization";
 import {
   User,
   Briefcase,

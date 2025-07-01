@@ -16,7 +16,10 @@ export function getUniqueFileName(originalName: string): string {
   return `${timestamp}_${sanitized}`;
 }
 
-export async function uploadToS3(file: File, fileName: string): Promise<string> {
+export async function uploadToS3(
+  file: File,
+  fileName: string,
+): Promise<string> {
   const res = await axios.post("/api/upload-aws", {
     fileName,
     contentType: file.type,
@@ -45,7 +48,7 @@ export async function uploadToS3(file: File, fileName: string): Promise<string> 
 
 export async function generateSuggestions(
   file: File,
-  jobDescription: string
+  jobDescription: string,
 ): Promise<CVOptimizationResult> {
   const formData = new FormData();
   formData.append("cv", file);

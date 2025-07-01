@@ -28,9 +28,13 @@ export default function HomePage() {
             setIsUploading={setIsUploading}
             isUploading={isUploading}
           />
-          <PDFViewer fileUrl={fileUrl} fileError={fileError} isUploading={isUploading}
-  isPreviewLoading={isPreviewLoading}
-  setIsPreviewLoading={setIsPreviewLoading} />
+          <PDFViewer
+            fileUrl={fileUrl}
+            fileError={fileError}
+            isUploading={isUploading}
+            isPreviewLoading={isPreviewLoading}
+            setIsPreviewLoading={setIsPreviewLoading}
+          />
         </>
       }
       rightPanel={

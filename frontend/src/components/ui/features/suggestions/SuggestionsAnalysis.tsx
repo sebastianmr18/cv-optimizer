@@ -5,27 +5,25 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
-import type {
-  CVOptimizationResult
-} from "@/types/CVOptimization";
+import type { CVOptimizationResult } from "@/types/CVOptimization";
 import { processCVOptimization } from "@/utils/processCV";
+import { Copy, CheckCircle, Lightbulb, Target, TrendingUp } from "lucide-react";
 import {
-  Copy,
-  CheckCircle,
-  Lightbulb,
-  Target,
-  TrendingUp,
-} from "lucide-react";
-import { getMatchScoreColor, getSectionConfig, getProgressColor } from "@/utils/suggestions/suggestionsUtils";
+  getMatchScoreColor,
+  getSectionConfig,
+  getProgressColor,
+} from "@/utils/suggestions/suggestionsUtils";
 import { useState } from "react";
 
 interface SuggestionsAnalysisProps {
   suggestions: CVOptimizationResult;
 }
 
-export default function SuggestionsAnalysis({ suggestions }: SuggestionsAnalysisProps) {
-    const [copiedItem, setCopiedItem] = useState<string | null>(null);
-      const sections = processCVOptimization(suggestions);
+export default function SuggestionsAnalysis({
+  suggestions,
+}: SuggestionsAnalysisProps) {
+  const [copiedItem, setCopiedItem] = useState<string | null>(null);
+  const sections = processCVOptimization(suggestions);
 
   const copyToClipboard = async (text: string, identifier: string) => {
     try {
@@ -38,7 +36,7 @@ export default function SuggestionsAnalysis({ suggestions }: SuggestionsAnalysis
       console.error("Failed to copy text to clipboard:", error);
     }
   };
-    return (
+  return (
     <div className="mt-6 space-y-6">
       {/* Header with Match Score */}
       <div className="space-y-4">
@@ -189,5 +187,5 @@ export default function SuggestionsAnalysis({ suggestions }: SuggestionsAnalysis
         </>
       )}
     </div>
-    )
+  );
 }
