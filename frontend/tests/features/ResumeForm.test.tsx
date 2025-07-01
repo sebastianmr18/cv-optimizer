@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import axios from "axios";
-import ResumeForm from "@/components/ui/features/ResumeForm";
+import ResumeForm from "@/components/ui/features/resumeForm/module";
 
 // Mock axios
 jest.mock("axios");

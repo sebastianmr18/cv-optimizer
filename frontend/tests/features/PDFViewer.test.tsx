@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import PDFViewer from "@/components/ui/features/PDFViewer";
+import PDFViewer from "@/components/ui/features/PDFViewer/module";
 
 global.fetch = jest.fn();
 
