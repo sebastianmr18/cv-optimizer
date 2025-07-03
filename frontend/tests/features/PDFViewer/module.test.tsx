@@ -2,7 +2,6 @@ import { render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PDFViewer from "@/components/ui/features/PDFViewer/module";
 
-// --- Mocks Necesarios ---
 jest.mock("@/components/ui/features/PDFViewer/PDFViewerFileError", () => ({
   __esModule: true,
   default: ({ fileError }: { fileError: string }) => (
@@ -62,7 +61,6 @@ describe("<PDFViewer />", () => {
     isValidPDF,
   } = require("@/utils/PDFViewer/PDFViewerUtils");
 
-  // Limpieza después de cada test para asegurar mocks limpios
   afterEach(() => {
     generatePresignedUrl.mockClear();
     isValidPDF.mockClear();
@@ -114,7 +112,7 @@ describe("<PDFViewer />", () => {
       `Not a PDF: ${invalidUrl}`,
     );
     expect(isValidPDF).toHaveBeenCalledWith(invalidUrl);
-    expect(generatePresignedUrl).not.toHaveBeenCalled(); // No debe llamarse si no es un PDF válido
+    expect(generatePresignedUrl).not.toHaveBeenCalled();
   });
 
   // 4. Test de renderizado condicional: Loading (isUploading)
@@ -138,7 +136,7 @@ describe("<PDFViewer />", () => {
       <PDFViewer
         fileUrl="http://example.com/test.pdf"
         isUploading={false}
-        isPreviewLoading={true} // Se simula que ya está cargando la preview
+        isPreviewLoading={true}
         setIsPreviewLoading={jest.fn()}
       />,
     );
@@ -152,7 +150,7 @@ describe("<PDFViewer />", () => {
     const mockSetIsPreviewLoading = jest.fn();
 
     isValidPDF.mockReturnValue(true);
-    generatePresignedUrl.mockResolvedValue(signedUrl); // Simula éxito
+    generatePresignedUrl.mockResolvedValue(signedUrl);
 
     render(
       <PDFViewer
@@ -164,7 +162,7 @@ describe("<PDFViewer />", () => {
     );
 
     await waitFor(() => {
-      expect(mockSetIsPreviewLoading).toHaveBeenCalledWith(true); // Se inicia la carga
+      expect(mockSetIsPreviewLoading).toHaveBeenCalledWith(true);
     });
 
     await waitFor(() => {
@@ -172,7 +170,7 @@ describe("<PDFViewer />", () => {
       expect(screen.getByTestId("pdf-viewer-show-pdf")).toHaveTextContent(
         `PDF Displayed: ${signedUrl}`,
       );
-      expect(mockSetIsPreviewLoading).toHaveBeenCalledWith(false); // La carga finaliza
+      expect(mockSetIsPreviewLoading).toHaveBeenCalledWith(false);
     });
     expect(mockSetIsPreviewLoading).toHaveBeenCalledTimes(2);
   });
@@ -183,7 +181,7 @@ describe("<PDFViewer />", () => {
     const mockSetIsPreviewLoading = jest.fn();
 
     isValidPDF.mockReturnValue(true);
-    generatePresignedUrl.mockRejectedValue(new Error("Network error")); // Simula error
+    generatePresignedUrl.mockRejectedValue(new Error("Network error"));
 
     render(
       <PDFViewer
@@ -195,7 +193,7 @@ describe("<PDFViewer />", () => {
     );
 
     await waitFor(() => {
-      expect(mockSetIsPreviewLoading).toHaveBeenCalledWith(true); // Se inicia la carga
+      expect(mockSetIsPreviewLoading).toHaveBeenCalledWith(true);
     });
 
     expect(mockSetIsPreviewLoading).toHaveBeenCalledTimes(2);
@@ -214,12 +212,12 @@ describe("<PDFViewer />", () => {
       />,
     );
     expect(generatePresignedUrl).not.toHaveBeenCalled();
-    expect(isValidPDF).not.toHaveBeenCalled(); // No se llama si fileUrl es null
+    expect(isValidPDF).not.toHaveBeenCalled();
   });
 
   it("no llama a generatePresignedUrl si fileUrl no es un PDF válido", () => {
     const invalidUrl = "http://example.com/not-a-pdf.txt";
-    isValidPDF.mockReturnValue(false); // Explícitamente simulamos que no es un PDF
+    isValidPDF.mockReturnValue(false);
 
     render(
       <PDFViewer
@@ -229,8 +227,8 @@ describe("<PDFViewer />", () => {
         setIsPreviewLoading={jest.fn()}
       />,
     );
-    expect(isValidPDF).toHaveBeenCalledWith(invalidUrl); // Se verifica la validez
-    expect(generatePresignedUrl).not.toHaveBeenCalled(); // Pero no se genera URL firmada
+    expect(isValidPDF).toHaveBeenCalledWith(invalidUrl);
+    expect(generatePresignedUrl).not.toHaveBeenCalled();
   });
 
   // 9. Test: Comportamiento cuando fileUrl cambia
@@ -257,11 +255,9 @@ describe("<PDFViewer />", () => {
       );
     });
 
-    // Clear the mock for the next call
     generatePresignedUrl.mockClear();
     mockSetIsPreviewLoading.mockClear();
 
-    // Cambia la URL
     generatePresignedUrl.mockResolvedValueOnce("signed-url-2");
     rerender(
       <PDFViewer
@@ -281,7 +277,7 @@ describe("<PDFViewer />", () => {
       );
     });
 
-    expect(generatePresignedUrl).toHaveBeenCalledTimes(1); // One call for the second render
-    expect(mockSetIsPreviewLoading).toHaveBeenCalledTimes(2); // Two calls for the second render (true and false)
+    expect(generatePresignedUrl).toHaveBeenCalledTimes(1);
+    expect(mockSetIsPreviewLoading).toHaveBeenCalledTimes(2);
   });
 });

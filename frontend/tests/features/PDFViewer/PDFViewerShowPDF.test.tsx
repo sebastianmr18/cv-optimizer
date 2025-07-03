@@ -1,11 +1,7 @@
-// PDFViewerShowPDF.test.tsx
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PDFViewerShowPDF from "@/components/ui/features/PDFViewer/PDFViewerShowPDF";
 
-// --- Mocks Necesarios ---
-// Mock de los componentes de UI de terceros para aislar el test a PDFViewerShowPDF
-// y evitar la necesidad de renderizar toda la complejidad del acordeón.
 jest.mock("@/components/ui/accordion", () => ({
   Accordion: ({
     children,
@@ -52,7 +48,6 @@ jest.mock("@/components/ui/accordion", () => ({
   ),
 }));
 
-// Mock del icono de lucide-react
 jest.mock("lucide-react", () => ({
   FileText: () => <svg data-testid="mock-file-text-icon" />,
 }));
@@ -60,24 +55,17 @@ jest.mock("lucide-react", () => ({
 describe("<PDFViewerShowPDF />", () => {
   // 1. Test de renderizado básico
   it("se renderiza correctamente con los elementos estáticos y el icono", () => {
-    // Al pasar null, se activa el estado de "Cargando documento..."
     render(<PDFViewerShowPDF signedUrl={null} />);
 
-    // Verifica que los componentes mockeados del acordeón estén presentes
     expect(screen.getByTestId("mock-accordion")).toBeInTheDocument();
     expect(
       screen.getByTestId("mock-accordion-item-item-1"),
     ).toBeInTheDocument();
     expect(screen.getByTestId("mock-accordion-trigger")).toBeInTheDocument();
     expect(screen.getByTestId("mock-accordion-content")).toBeInTheDocument();
-
-    // Verifica la presencia del icono
     expect(screen.getByTestId("mock-file-text-icon")).toBeInTheDocument();
 
-    // Verifica los textos estáticos del trigger
     expect(screen.getByText("Vista Previa del Documento")).toBeInTheDocument();
-
-    // Verifica que el mensaje de carga inicial esté presente
     expect(screen.getByText("Cargando documento...")).toBeInTheDocument();
   });
 

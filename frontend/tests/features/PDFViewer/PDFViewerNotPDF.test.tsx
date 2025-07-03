@@ -1,11 +1,7 @@
-// PDFViewerNotPDF.test.tsx
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PDFViewerNotPDF from "@/components/ui/features/PDFViewer/PDFViewerNotPDF";
 
-// --- Mocks Necesarios ---
-// Mock de los componentes de UI de terceros para aislar el test a PDFViewerNotPDF
-// y evitar la necesidad de renderizar toda la complejidad de Card.
 jest.mock("@/components/ui/card", () => ({
   Card: ({
     children,
@@ -31,7 +27,6 @@ jest.mock("@/components/ui/card", () => ({
   ),
 }));
 
-// Mock del icono de lucide-react
 jest.mock("lucide-react", () => ({
   FileWarning: () => <svg data-testid="mock-file-warning-icon" />,
 }));
@@ -42,12 +37,10 @@ describe("<PDFViewerNotPDF />", () => {
     const mockFileUrl = "http://example.com/document.docx";
     render(<PDFViewerNotPDF fileUrl={mockFileUrl} />);
 
-    // Verifica que los componentes mockeados estén presentes
     expect(screen.getByTestId("mock-card")).toBeInTheDocument();
     expect(screen.getByTestId("mock-card-content")).toBeInTheDocument();
     expect(screen.getByTestId("mock-file-warning-icon")).toBeInTheDocument();
 
-    // Verifica los textos estáticos
     expect(screen.getByText("Vista previa no disponible")).toBeInTheDocument();
     expect(
       screen.getByText("Este tipo de archivo no se puede previsualizar"),
