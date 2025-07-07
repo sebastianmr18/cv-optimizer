@@ -14,66 +14,70 @@ export const CV_OPTIMIZATION_SCHEMA = {
     "formatSuggestions",
     "contentSuggestions",
     "experienceSuggestions",
-    "finalRecommendation"
+    "finalRecommendation",
   ],
   properties: {
     summary: {
       type: Type.STRING,
-      description: "Breve resumen del análisis del CV vs la oferta de empleo"
+      description: "Breve resumen del análisis del CV vs la oferta de empleo",
     },
     matchScore: {
       type: Type.NUMBER,
-      description: "Puntaje de coincidencia entre 0-100 basado en la adecuación CV-oferta"
+      description:
+        "Puntaje de coincidencia entre 0-100 basado en la adecuación CV-oferta",
     },
     keywordSuggestions: {
       type: Type.ARRAY,
       items: {
         type: Type.STRING,
-        description: "Sugerencias relacionadas con palabras clave faltantes o relevantes"
-      }
+        description:
+          "Sugerencias relacionadas con palabras clave faltantes o relevantes",
+      },
     },
     formatSuggestions: {
       type: Type.ARRAY,
       items: {
         type: Type.STRING,
-        description: "Sugerencias para mejorar el formato y estructura del CV"
-      }
+        description: "Sugerencias para mejorar el formato y estructura del CV",
+      },
     },
     contentSuggestions: {
       type: Type.ARRAY,
       items: {
         type: Type.STRING,
-        description: "Sugerencias para mejorar el contenido relevante del CV"
-      }
+        description: "Sugerencias para mejorar el contenido relevante del CV",
+      },
     },
     experienceSuggestions: {
       type: Type.ARRAY,
       items: {
         type: Type.STRING,
-        description: "Sugerencias específicas sobre la experiencia profesional"
-      }
+        description: "Sugerencias específicas sobre la experiencia profesional",
+      },
     },
     finalRecommendation: {
       type: Type.STRING,
-      description: "Conclusión y recomendaciones generales para mejorar el CV"
+      description: "Conclusión y recomendaciones generales para mejorar el CV",
     },
     missingSkills: {
       type: Type.ARRAY,
       items: {
         type: Type.STRING,
-        description: "Lista de habilidades mencionadas en la oferta que faltan en el CV"
+        description:
+          "Lista de habilidades mencionadas en la oferta que faltan en el CV",
       },
-      optional: true
+      optional: true,
     },
     strongMatches: {
       type: Type.ARRAY,
       items: {
         type: Type.STRING,
-        description: "Lista de habilidades/experiencias que son fuertes coincidencias"
+        description:
+          "Lista de habilidades/experiencias que son fuertes coincidencias",
       },
-      optional: true
-    }
-  }
+      optional: true,
+    },
+  },
 };
 
 export async function getSuggestions(
@@ -143,15 +147,15 @@ ${jobText.substring(0, 3000)}
   try {
     // Limpiar la respuesta eliminando markdown y cualquier texto no JSON
     let cleanedResponse = response.trim();
-    
+
     // Eliminar ```json y ``` si están presentes
-    if (cleanedResponse.startsWith('```json')) {
+    if (cleanedResponse.startsWith("```json")) {
       cleanedResponse = cleanedResponse.slice(7);
     }
-    if (cleanedResponse.endsWith('```')) {
+    if (cleanedResponse.endsWith("```")) {
       cleanedResponse = cleanedResponse.slice(0, -3);
     }
-    
+
     // Parsear el JSON limpio
     const parsedResponse = JSON.parse(cleanedResponse);
     return parsedResponse;
