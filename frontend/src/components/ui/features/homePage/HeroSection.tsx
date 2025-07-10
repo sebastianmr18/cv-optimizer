@@ -8,23 +8,26 @@ import { Badge } from "@/components/ui/badge";
 
 export default function HeroSection() {
   return (
-    <section className="py-20 px-4 md:px-6 bg-gradient-to-br from-green-50 to-green-100">
+    <section
+      id="hero"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 px-4"
+    >
       <div className="container mx-auto max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-4xl mx-auto text-center">
           <div className="space-y-6">
             <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
               Optimización de CV con IA
             </Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              Optimiza tu CV para cada{" "}
-              <span className="text-green-600">oportunidad laboral</span>
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+              Optimiza tu CV con{" "}
+              <span className="text-green-600">Inteligencia Artificial</span>
             </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              Recibe recomendaciones personalizadas basadas en IA para adaptar
-              tu currículum a cualquier oferta de trabajo y aumentar tus
-              posibilidades de éxito.
+            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+              Mejora tus oportunidades laborales con nuestro optimizador de CV
+              impulsado por IA. Obtén sugerencias personalizadas y destaca entre
+              los candidatos.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col gap-4 justify-center">
               <Link href="/analyzer">
                 <Button
                   size="lg"
@@ -34,17 +37,6 @@ export default function HeroSection() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-            </div>
-          </div>
-          <div className="relative">
-            <div className="bg-white rounded-lg shadow-2xl p-6">
-              <Image
-                src="/images/cv-optimizer-app.png"
-                alt="Interfaz de CV Optimizer"
-                width={600}
-                height={400}
-                className="rounded-lg"
-              />
             </div>
           </div>
         </div>

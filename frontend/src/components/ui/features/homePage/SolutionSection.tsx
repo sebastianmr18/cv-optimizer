@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 
 export default function SolutionSection() {
   return (
-    <section id="solucion" className="py-20 px-4 md:px-6 bg-green-50">
+    <section id="solution" className="py-20 px-4 md:px-6 bg-green-50">
       <div className="container mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
