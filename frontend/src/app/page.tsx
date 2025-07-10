@@ -1,31 +1,27 @@
-"use client";
-
-import ResumeForm from "@/components/features/ResumeForm";
-import Suggestions from "@/components/features/Suggestions";
-import CVPageLayout from "@/components/layout/CVPageLayout";
-import PDFViewer from "@/components/features/PDFViewer";
-import { useEffect, useState } from "react";
+import HeroSection from "@/components/ui/features/homePage/HeroSection";
+import ProblemSection from "@/components/ui/features/homePage/ProblemSection";
+import SolutionSection from "@/components/ui/features/homePage/SolutionSection";
+import TargetAudience from "@/components/ui/features/homePage/TargetAudience";
+import FeaturesSection from "@/components/ui/features/homePage/FeaturesSection";
 
 export default function HomePage() {
-  const [suggestions, setSuggestions] = useState<string>("");
-  const [fileUrl, setFileUrl] = useState<string | null>(null);
-  const [fileError, setFileError] = useState<string | null>(null);
-  useEffect(() => {
-    console.log(typeof suggestions, suggestions);
-  }, [suggestions]);
   return (
-    <CVPageLayout
-      leftPanel={
-        <>
-          <ResumeForm
-            setSuggestions={setSuggestions}
-            setFileUrl={setFileUrl}
-            setFileError={setFileError}
-          />
-          <PDFViewer fileUrl={fileUrl} fileError={fileError} />
-        </>
-      }
-      rightPanel={<Suggestions suggestions={suggestions} />}
-    />
+    <div className="flex flex-col min-h-screen bg-white">
+      <main className="flex-1">
+        <HeroSection />
+
+        {/* Problem Section */}
+        <ProblemSection />
+
+        {/* Solution Section */}
+        <SolutionSection />
+
+        {/* Target Audience */}
+        <TargetAudience />
+
+        {/* Features Section */}
+        <FeaturesSection />
+      </main>
+    </div>
   );
 }
