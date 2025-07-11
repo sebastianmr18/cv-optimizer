@@ -1,32 +1,38 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { AlertTriangle, Target, FileX } from "lucide-react"
+import { motion } from "framer-motion";
+import { AlertTriangle, Target, FileX } from "lucide-react";
 
 const problems = [
   {
     icon: FileX,
     title: "Formato Inadecuado",
-    description: "Los sistemas ATS rechazan CVs con formatos complejos o poco legibles",
+    description:
+      "Los sistemas ATS rechazan CVs con formatos complejos o poco legibles",
     color: "from-red-500 to-pink-500",
   },
   {
     icon: Target,
     title: "Falta de Palabras Clave",
-    description: "Sin las palabras clave correctas, tu CV nunca llegará a manos de un reclutador",
+    description:
+      "Sin las palabras clave correctas, tu CV nunca llegará a manos de un reclutador",
     color: "from-orange-500 to-red-500",
   },
   {
     icon: AlertTriangle,
     title: "Contenido Genérico",
-    description: "CVs que no destacan logros específicos ni se adaptan al puesto deseado",
+    description:
+      "CVs que no destacan logros específicos ni se adaptan al puesto deseado",
     color: "from-yellow-500 to-orange-500",
   },
-]
+];
 
 export default function ProblemSection() {
   return (
-    <section id="problem" className="py-20 px-4 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+    <section
+      id="problem"
+      className="py-20 px-4 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden"
+    >
       <motion.div
         initial={{ opacity: 0, x: -100 }}
         whileInView={{ opacity: 0.05, x: 0 }}
@@ -73,7 +79,8 @@ export default function ProblemSection() {
             viewport={{ once: true }}
             className="text-xl text-gray-600 max-w-3xl mx-auto"
           >
-            Muchos profesionales talentosos luchan por conseguir entrevistas debido a CVs mal optimizados
+            Muchos profesionales talentosos luchan por conseguir entrevistas
+            debido a CVs mal optimizados
           </motion.p>
         </motion.div>
 
@@ -137,5 +144,5 @@ export default function ProblemSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
