@@ -23,6 +23,7 @@ describe("<ResumeForm />", () => {
     const setFileError = jest.fn();
     const setSuggestionsLoading = jest.fn();
     const setIsUploading = jest.fn();
+    const setSuggestionsError = jest.fn();
 
     render(
       <ResumeForm
@@ -32,6 +33,7 @@ describe("<ResumeForm />", () => {
         setSuggestionsLoading={setSuggestionsLoading}
         setIsUploading={setIsUploading}
         isUploading={false}
+        setSuggestionsError={setSuggestionsError}
       />,
     );
 
@@ -41,6 +43,7 @@ describe("<ResumeForm />", () => {
       setFileError,
       setSuggestionsLoading,
       setIsUploading,
+      setSuggestionsError,
     };
   };
 

@@ -19,6 +19,7 @@ interface ResumeFormProps {
   setSuggestionsLoading: (loading: boolean) => void;
   setIsUploading: (loading: boolean) => void;
   isUploading: boolean;
+  setSuggestionsError: (error: boolean) => void;
 }
 
 export default function ResumeForm({
@@ -28,6 +29,7 @@ export default function ResumeForm({
   setSuggestionsLoading,
   setIsUploading,
   isUploading,
+  setSuggestionsError,
 }: ResumeFormProps) {
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [jobDescription, setJobDescription] = useState("");
@@ -38,13 +40,14 @@ export default function ResumeForm({
     e.preventDefault();
     if (!cvFile || !jobDescription) return;
 
+    setSuggestionsError(false);
     setSuggestionsLoading(true);
-
     try {
       const suggestions = await generateSuggestions(cvFile, jobDescription);
       setSuggestions(suggestions);
     } catch (error) {
       console.error("Error al generar sugerencias:", error);
+      setSuggestionsError(true);
     } finally {
       setSuggestionsLoading(false);
     }
