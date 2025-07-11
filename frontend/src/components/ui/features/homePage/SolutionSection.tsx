@@ -10,7 +10,6 @@ import {
   FileText,
   Sparkles,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 
 const steps = [
   {
