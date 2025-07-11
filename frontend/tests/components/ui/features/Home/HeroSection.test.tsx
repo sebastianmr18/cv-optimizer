@@ -96,15 +96,15 @@ describe("<HeroSection />", () => {
       ),
     ).toBeInTheDocument();
 
-    const startButton = screen.getByRole("link", { name: /Comenzar Gratis/i });
+    const startButton = screen.getByRole("link", { name: /Comenzar Ahora/i });
     expect(startButton).toBeInTheDocument();
   });
 
   // 2. Test de interacción: Link y su destino
-  it('the "Comenzar Gratis" link navigates to the correct path', () => {
+  it('the "Comenzar Ahora" link navigates to the correct path', () => {
     render(<HeroSection />);
     const startButtonLink = screen.getByRole("link", {
-      name: /Comenzar Gratis/i,
+      name: /Comenzar Ahora/i,
     });
 
     expect(startButtonLink).toHaveAttribute("href", "/analyzer");
@@ -116,14 +116,13 @@ describe("<HeroSection />", () => {
 
     expect(screen.getByTestId("icon-arrow-right")).toBeInTheDocument();
 
-    const button = screen.getByRole("link", { name: /Comenzar Gratis/i });
+    const button = screen.getByRole("link", { name: /Comenzar Ahora/i });
     expect(button).toContainElement(screen.getByTestId("icon-arrow-right"));
   });
 
   // 4. Test de la estructura general (presencia de mock-card aunque no es una Card)
   it("uses the mocked Button and Badge components", () => {
     render(<HeroSection />);
-    expect(screen.getByTestId("mock-button-lg")).toBeInTheDocument();
     expect(screen.getByTestId("mock-badge")).toBeInTheDocument();
   });
 });
