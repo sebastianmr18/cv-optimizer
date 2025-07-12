@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import HelpDialog from "@/components/HelpDialog";
 
 const navigationItems = [
   { id: "hero", label: "Inicio" },
@@ -140,15 +141,20 @@ export default function Header() {
           className="flex items-center gap-2"
         >
           {!isHomePage && (
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                variant="outline"
-                size="sm"
-                className="text-secondary-foreground hover:bg-green-900 hover:text-primary-foreground hover:border-green-900 transition-all duration-300 bg-transparent border-green-600 hover:shadow-lg"
+            <HelpDialog>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Ayuda
-              </Button>
-            </motion.div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-secondary-foreground hover:bg-green-900 hover:text-primary-foreground hover:border-green-900 transition-all duration-300 bg-transparent border-green-600 hover:shadow-lg"
+                >
+                  Ayuda
+                </Button>
+              </motion.div>
+            </HelpDialog>
           )}
 
           {isHomePage && (

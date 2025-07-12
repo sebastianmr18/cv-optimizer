@@ -26,6 +26,7 @@ export default function AnalyzerPage() {
             setFileUrl={setFileUrl}
             setFileError={setFileError}
             setSuggestionsLoading={setIsSuggestionsLoading}
+            isSuggestionsLoading={isSuggestionsLoading}
             setIsUploading={setIsUploading}
             isUploading={isUploading}
             setSuggestionsError={setSuggestionsError}
