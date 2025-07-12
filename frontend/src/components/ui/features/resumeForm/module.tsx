@@ -48,6 +48,7 @@ export default function ResumeForm({
       const suggestions = await generateSuggestions(cvFile, jobDescription);
       setSuggestions(suggestions);
     } catch (error) {
+      console.error("Error al generar sugerencias:", error);
       setSuggestionsError(true);
     } finally {
       setSuggestionsLoading(false);
