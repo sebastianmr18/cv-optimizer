@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Leaf, ArrowUp, Heart } from "lucide-react"
-import Link from "next/link"
+import { motion } from "framer-motion";
+import { Leaf, ArrowUp, Heart } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <footer className="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white relative overflow-hidden">
@@ -82,10 +82,15 @@ export default function Footer() {
               viewport={{ once: true }}
               className="mb-8"
             >
-              <Link href="/" className="flex items-center justify-center gap-3 mb-6 group">
-                  <Leaf className="w-7 h-7 text-white" />
+              <Link
+                href="/"
+                className="flex items-center justify-center gap-3 mb-6 group"
+              >
+                <Leaf className="w-7 h-7 text-white" />
                 <div>
-                  <h3 className="text-3xl font-bold group-hover:text-green-400 transition-colors">CV Optimizer</h3>
+                  <h3 className="text-3xl font-bold group-hover:text-green-400 transition-colors">
+                    CV Optimizer
+                  </h3>
                   <p className="text-sm text-gray-400">Potenciado por IA</p>
                 </div>
               </Link>
@@ -97,8 +102,9 @@ export default function Footer() {
                 viewport={{ once: true }}
                 className="text-gray-300 text-lg leading-relaxed max-w-lg mx-auto"
               >
-                Optimiza tu CV con inteligencia artificial avanzada y aumenta tus oportunidades laborales. Únete a miles
-                de profesionales que ya han mejorado sus carreras.
+                Optimiza tu CV con inteligencia artificial avanzada y aumenta
+                tus oportunidades laborales. Únete a miles de profesionales que
+                ya han mejorado sus carreras.
               </motion.p>
             </motion.div>
           </div>
@@ -121,15 +127,25 @@ export default function Footer() {
               viewport={{ once: true }}
               className="flex flex-col sm:flex-row items-center gap-2 text-gray-400 text-sm"
             >
-              <span>&copy; {new Date().getFullYear()} CV Optimizer AI. Proyecto open source en desarrollo.</span>
+              <span>
+                &copy; {new Date().getFullYear()} CV Optimizer AI. Proyecto open
+                source en desarrollo.
+              </span>
               <div className="flex items-center gap-2">
                 <span className="flex items-center gap-1">
                   Hecho con{" "}
                   <motion.div
                     animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Number.POSITIVE_INFINITY,
+                      ease: "easeInOut",
+                    }}
                   >
-                    <Heart className="w-4 h-4 text-yellow-400" fill="currentColor" />
+                    <Heart
+                      className="w-4 h-4 text-yellow-400"
+                      fill="currentColor"
+                    />
                   </motion.div>{" "}
                   en Colombia
                 </span>
@@ -153,5 +169,5 @@ export default function Footer() {
         </motion.button>
       </div>
     </footer>
-  )
+  );
 }

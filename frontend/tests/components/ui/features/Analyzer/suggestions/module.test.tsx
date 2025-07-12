@@ -24,6 +24,13 @@ jest.mock("@/components/ui/features/suggestions/SuggestionsAnalysis", () => {
   );
 });
 
+jest.mock("@/components/ui/features/suggestions/SuggestionsError", () => {
+  // eslint-disable-next-line react/display-name
+  return ({ suggestions }: { suggestions: CVOptimizationResult }) => (
+    <div data-testid="mock-suggestions-error">Suggestions Error</div>
+  );
+});
+
 describe("<Suggestions />", () => {
   const mockSuggestionsData: CVOptimizationResult = {
     overall_score: 85,
@@ -37,7 +44,13 @@ describe("<Suggestions />", () => {
 
   // 1. Test de renderizado condicional: Estado de Carga
   it("renderiza LoadingSkeleton cuando suggestionsLoading es true", () => {
-    render(<Suggestions suggestions={null} suggestionsLoading={true} />);
+    render(
+      <Suggestions
+        suggestions={null}
+        suggestionsLoading={true}
+        suggestionsError={false}
+      />,
+    );
 
     expect(screen.getByTestId("mock-loading-skeleton")).toBeInTheDocument();
 
@@ -51,7 +64,13 @@ describe("<Suggestions />", () => {
 
   // 2. Test de renderizado condicional: Datos no encontrados/ausentes
   it("renderiza SuggestionsNotFound cuando suggestionsLoading es false y suggestions es null", () => {
-    render(<Suggestions suggestions={null} suggestionsLoading={false} />);
+    render(
+      <Suggestions
+        suggestions={null}
+        suggestionsLoading={false}
+        suggestionsError={false}
+      />,
+    );
 
     expect(
       screen.getByTestId("mock-suggestions-not-found"),
@@ -71,6 +90,7 @@ describe("<Suggestions />", () => {
       <Suggestions
         suggestions={mockSuggestionsData}
         suggestionsLoading={false}
+        suggestionsError={false}
       />,
     );
 
@@ -97,6 +117,7 @@ describe("<Suggestions />", () => {
       <Suggestions
         suggestions={mockSuggestionsData}
         suggestionsLoading={true}
+        suggestionsError={false}
       />,
     );
 
@@ -104,6 +125,25 @@ describe("<Suggestions />", () => {
 
     expect(
       screen.queryByTestId("mock-suggestions-analysis"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("mock-suggestions-not-found"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("Hay error al generar sugerencias, renderiza SuggestionsError", () => {
+    render(
+      <Suggestions
+        suggestions={null}
+        suggestionsLoading={false}
+        suggestionsError={true}
+      />,
+    );
+
+    expect(screen.getByTestId("mock-suggestions-error")).toBeInTheDocument();
+
+    expect(
+      screen.queryByTestId("mock-loading-skeleton"),
     ).not.toBeInTheDocument();
     expect(
       screen.queryByTestId("mock-suggestions-not-found"),

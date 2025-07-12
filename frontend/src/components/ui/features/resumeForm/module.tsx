@@ -17,8 +17,10 @@ interface ResumeFormProps {
   setFileUrl: (fileUrl: string | null) => void;
   setFileError: (error: string | null) => void;
   setSuggestionsLoading: (loading: boolean) => void;
+  isSuggestionsLoading: boolean;
   setIsUploading: (loading: boolean) => void;
   isUploading: boolean;
+  setSuggestionsError: (error: boolean) => void;
 }
 
 export default function ResumeForm({
@@ -26,8 +28,10 @@ export default function ResumeForm({
   setFileUrl,
   setFileError,
   setSuggestionsLoading,
+  isSuggestionsLoading,
   setIsUploading,
   isUploading,
+  setSuggestionsError,
 }: ResumeFormProps) {
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [jobDescription, setJobDescription] = useState("");
@@ -38,13 +42,14 @@ export default function ResumeForm({
     e.preventDefault();
     if (!cvFile || !jobDescription) return;
 
+    setSuggestionsError(false);
     setSuggestionsLoading(true);
-
     try {
       const suggestions = await generateSuggestions(cvFile, jobDescription);
       setSuggestions(suggestions);
     } catch (error) {
       console.error("Error al generar sugerencias:", error);
+      setSuggestionsError(true);
     } finally {
       setSuggestionsLoading(false);
     }
@@ -146,17 +151,17 @@ export default function ResumeForm({
         <button
           type="submit"
           className="w-full bg-green-500 text-primary-foreground px-4 py-2 rounded-md text-sm font-medium hover:bg-green-800 transition-colors disabled:bg-green-400 disabled:text-gray-500"
-          disabled={!cvFile || !jobDescription || isUploading}
+          disabled={!cvFile || !jobDescription || isUploading || isSuggestionsLoading}
           onClick={handleSubmit}
         >
-          {isUploading ? "Generando sugerencias..." : "Generar sugerencias"}
+          {isSuggestionsLoading ? "Generando sugerencias..." : "Generar sugerencias"}
         </button>
 
         <button
           type="button"
           className="w-full mt-2 bg-red-500 text-gray-200 px-4 py-2 rounded-md text-sm font-medium hover:bg-red-300 hover:text-gray-500 transition-colors disabled:bg-red-400 disabled:text-gray-200"
           onClick={handleClear}
-          disabled={(!cvFile && !jobDescription) || isUploading}
+          disabled={(!cvFile && !jobDescription) || isUploading || isSuggestionsLoading}
         >
           Limpiar
         </button>
