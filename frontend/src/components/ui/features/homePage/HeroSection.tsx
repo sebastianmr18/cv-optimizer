@@ -1,51 +1,90 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 export default function HeroSection() {
   return (
-    <section className="py-20 px-4 md:px-6 bg-gradient-to-br from-green-50 to-green-100">
+    <section
+      id="hero"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 px-4"
+    >
       <div className="container mx-auto max-w-6xl">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex items-center justify-center gap-2 mb-6"
+        ></motion.div>
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex items-center justify-center gap-2 mb-6"
+          >
             <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
               Optimización de CV con IA
             </Badge>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              Optimiza tu CV para cada{" "}
-              <span className="text-green-600">oportunidad laboral</span>
-            </h1>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              Recibe recomendaciones personalizadas basadas en IA para adaptar
-              tu currículum a cualquier oferta de trabajo y aumentar tus
-              posibilidades de éxito.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+          </motion.div>
+          <div className="space-y-6">
+            <motion.h1
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+              className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight"
+            >
+              Optimiza tu CV con{" "}
+              <motion.span
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+                className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600"
+              >
+                Inteligencia Artificial
+              </motion.span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed"
+            >
+              Mejora tus oportunidades laborales con nuestro optimizador de CV
+              impulsado por IA. Obtén sugerencias personalizadas y destaca entre
+              los candidatos.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+              className="flex items-center justify-center gap-4"
+            >
               <Link href="/analyzer">
-                <Button
-                  size="lg"
-                  className="bg-green-600 hover:bg-green-700 text-white"
+                <motion.button
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 20px 40px rgba(34, 197, 94, 0.3)",
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 shadow-lg flex items-center justify-center gap-2 group"
                 >
-                  Comenzar Gratis
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                  Comenzar Ahora
+                  <motion.div
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Number.POSITIVE_INFINITY,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </motion.div>
+                </motion.button>
               </Link>
-            </div>
-          </div>
-          <div className="relative">
-            <div className="bg-white rounded-lg shadow-2xl p-6">
-              <Image
-                src="/images/cv-optimizer-app.png"
-                alt="Interfaz de CV Optimizer"
-                width={600}
-                height={400}
-                className="rounded-lg"
-              />
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

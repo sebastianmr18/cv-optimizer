@@ -86,56 +86,43 @@ describe("<HeroSection />", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /Optimiza tu CV para cada/i,
+        name: /Optimiza tu CV con/i,
       }),
     ).toBeInTheDocument();
-    expect(screen.getByText(/oportunidad laboral/i)).toBeInTheDocument();
+    expect(screen.getByText(/Inteligencia Artificial/i)).toBeInTheDocument();
     expect(
       screen.getByText(
-        /Recibe recomendaciones personalizadas basadas en IA para adaptar tu currículum a cualquier oferta de trabajo y aumentar tus posibilidades de éxito./i,
+        /Mejora tus oportunidades laborales con nuestro optimizador de CV impulsado por IA. Obtén sugerencias personalizadas y destaca entre los candidatos./i,
       ),
     ).toBeInTheDocument();
 
-    const startButton = screen.getByRole("link", { name: /Comenzar Gratis/i });
+    const startButton = screen.getByRole("link", { name: /Comenzar Ahora/i });
     expect(startButton).toBeInTheDocument();
   });
 
   // 2. Test de interacción: Link y su destino
-  it('the "Comenzar Gratis" link navigates to the correct path', () => {
+  it('the "Comenzar Ahora" link navigates to the correct path', () => {
     render(<HeroSection />);
     const startButtonLink = screen.getByRole("link", {
-      name: /Comenzar Gratis/i,
+      name: /Comenzar Ahora/i,
     });
 
     expect(startButtonLink).toHaveAttribute("href", "/analyzer");
   });
 
-  // 3. Test de renderizado de la imagen
-  it("renders the main image with correct attributes", () => {
-    render(<HeroSection />);
-
-    const heroImage = screen.getByTestId("mock-image");
-    expect(heroImage).toBeInTheDocument();
-    expect(heroImage).toHaveAttribute("src", "/images/cv-optimizer-app.png");
-    expect(heroImage).toHaveAttribute("alt", "Interfaz de CV Optimizer");
-    expect(heroImage).toHaveAttribute("width", "600");
-    expect(heroImage).toHaveAttribute("height", "400");
-  });
-
-  // 4. Test de los iconos y componentes hijos
+  // 3. Test de los iconos y componentes hijos
   it("renders the ArrowRight icon within the button", () => {
     render(<HeroSection />);
 
     expect(screen.getByTestId("icon-arrow-right")).toBeInTheDocument();
 
-    const button = screen.getByRole("link", { name: /Comenzar Gratis/i });
+    const button = screen.getByRole("link", { name: /Comenzar Ahora/i });
     expect(button).toContainElement(screen.getByTestId("icon-arrow-right"));
   });
 
-  // 5. Test de la estructura general (presencia de mock-card aunque no es una Card)
+  // 4. Test de la estructura general (presencia de mock-card aunque no es una Card)
   it("uses the mocked Button and Badge components", () => {
     render(<HeroSection />);
-    expect(screen.getByTestId("mock-button-lg")).toBeInTheDocument();
     expect(screen.getByTestId("mock-badge")).toBeInTheDocument();
   });
 });

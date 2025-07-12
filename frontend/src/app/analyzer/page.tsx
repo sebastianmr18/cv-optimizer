@@ -16,6 +16,7 @@ export default function AnalyzerPage() {
   const [isSuggestionsLoading, setIsSuggestionsLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [isPreviewLoading, setIsPreviewLoading] = useState(false);
+  const [suggestionsError, setSuggestionsError] = useState(false);
   return (
     <CVPageLayout
       leftPanel={
@@ -25,8 +26,10 @@ export default function AnalyzerPage() {
             setFileUrl={setFileUrl}
             setFileError={setFileError}
             setSuggestionsLoading={setIsSuggestionsLoading}
+            isSuggestionsLoading={isSuggestionsLoading}
             setIsUploading={setIsUploading}
             isUploading={isUploading}
+            setSuggestionsError={setSuggestionsError}
           />
           <PDFViewer
             fileUrl={fileUrl}
@@ -41,6 +44,7 @@ export default function AnalyzerPage() {
         <Suggestions
           suggestions={suggestions}
           suggestionsLoading={isSuggestionsLoading}
+          suggestionsError={suggestionsError}
         />
       }
     />
