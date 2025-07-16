@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   backend:
-    build: ./backend
+    image: sebastianmr18/cv-optimizer-backend:latest
     env_file:
       - ./backend/.env
     ports:
@@ -18,7 +18,7 @@ services:
       retries: 3
 
   frontend:
-    build: ./frontend
+    image: sebastianmr18/cv-optimizer-frontend:latest
     env_file:
       - ./frontend/.env
     ports:
