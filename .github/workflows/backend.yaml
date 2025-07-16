@@ -69,5 +69,3 @@ jobs:
           context: ./backend
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/cv-optimizer-backend:${{ steps.tag.outputs.TAG }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
