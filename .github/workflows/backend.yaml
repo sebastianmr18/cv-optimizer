@@ -46,15 +46,18 @@ jobs:
       - name: Set Docker image tag
         id: tag
         run: |
-          BRANCH=${GITHUB_REF#refs/heads/}
-          if [[ "$BRANCH" == "main" ]]; then
+          REF=${GITHUB_REF#refs/heads/}
+          if [[ "${GITHUB_REF}" == refs/heads/main ]]; then
             echo "TAG=latest" >> $GITHUB_OUTPUT
-          elif [[ "$BRANCH" == "develop" ]]; then
+          elif [[ "${GITHUB_REF}" == refs/heads/develop ]]; then
             echo "TAG=dev" >> $GITHUB_OUTPUT
-          elif [[ "$BRANCH" == feat/* ]]; then
-            echo "TAG=feature-${BRANCH##feat/}" >> $GITHUB_OUTPUT
+          elif [[ "${GITHUB_REF}" == refs/heads/feat/* ]]; then
+            BRANCH_NAME=$(echo "${GITHUB_REF#refs/heads/}" | sed 's|/|-|g')
+            echo "TAG=feature-${BRANCH_NAME}" >> $GITHUB_OUTPUT
+          elif [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            echo "TAG=pr-${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
           else
-            echo "TAG=${BRANCH}" >> $GITHUB_OUTPUT
+            echo "TAG=commit-${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
           fi
         
       - name: Login to Docker Hub
